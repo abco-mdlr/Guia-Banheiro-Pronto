@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia: Banheiro Pronto em Obras Verticais — Ábaco Modular</title>
+<style>
+  /* ── TOKENS ─────────────────────────────────────────────────────────────── */
+  :root {
+    --verde-cover:   #1A3D2B;
+    --verde-heading: #1A5C38;
+    --teal:          #3A9E7A;
+    --mint:          #52C5A0;
+    --charcoal:      #2D3535;
+    --cinza-fundo:   #EBEBEB;
+    --cinza-linha:   #D4D4D4;
+    --branco:        #FFFFFF;
+    --cinza-texto:   #6B7280;
+
+    --ff-head: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --ff-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --radius: 2px;
+    --max-w: 780px;
+  }
+
+  /* ── RESET ──────────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--ff-body);
+    background: var(--cinza-fundo);
+    color: var(--charcoal);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT WRAPPER ─────────────────────────────────────────────────────── */
+  .doc {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    background: var(--branco);
+    box-shadow: 0 4px 40px rgba(0,0,0,.10);
+  }
+
+  /* ── COVER ──────────────────────────────────────────────────────────────── */
+  .cover {
+    background: var(--verde-cover);
+    padding: 64px 52px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 260px; height: 260px;
+    background: var(--teal);
+    opacity: .10;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--mint);
+  }
+  .cover-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mint);
+    margin-bottom: 20px;
+  }
+  .cover-title {
+    font-family: var(--ff-head);
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--branco);
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    margin-bottom: 18px;
+  }
+  .cover-title span { color: var(--mint); }
+  .cover-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,.72);
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .cover-index {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cover-index li {
+    font-size: 13px;
+    color: rgba(255,255,255,.85);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .cover-index li::before {
+    content: '→';
+    color: var(--mint);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .cover-wordmark {
+    position: absolute;
+    top: 28px; right: 52px;
+    text-align: right;
+  }
+  .cover-wordmark .brand {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .06em;
+    color: var(--branco);
+    text-transform: uppercase;
+  }
+  .cover-wordmark .site {
+    font-size: 10px;
+    color: var(--mint);
+    letter-spacing: .04em;
+  }
+
+  /* ── SECTION ────────────────────────────────────────────────────────────── */
+  .section { padding: 48px 52px; border-bottom: 1px solid var(--cinza-fundo); }
+  .section:last-child { border-bottom: none; }
+
+  .section-band {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    color: var(--mint);
+    background: var(--verde-cover);
+    padding: 4px 10px;
+    flex-shrink: 0;
+    border-radius: var(--radius);
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    color: var(--verde-heading);
+  }
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
+  .lead {
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  h3 {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--verde-heading);
+    margin: 28px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--mint);
+    display: inline-block;
+  }
+
+  /* ── CHECKLIST ──────────────────────────────────────────────────────────── */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--cinza-linha);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--cinza-linha);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li:nth-child(even) { background: var(--cinza-fundo); }
+  .checklist li .check {
+    color: var(--teal);
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── STEPS ──────────────────────────────────────────────────────────────── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--cinza-fundo);
+    align-items: start;
+    position: relative;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--cinza-linha);
+    line-height: 1;
+    padding-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .step-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--verde-heading);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 6px;
+  }
+  .step-body {
+    font-size: 13.5px;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  /* ── COMPARISON TABLE ───────────────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: var(--verde-heading);
+    color: var(--branco);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  thead th:first-child { background: var(--verde-cover); }
+  tbody tr:nth-child(even) td { background: var(--cinza-fundo); }
+  tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--cinza-linha);
+    line-height: 1.45;
+    vertical-align: top;
+  }
+  tbody td:first-child {
+    font-weight: 700;
+    color: var(--charcoal);
+    font-size: 12px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .bad  { color: #B45309; }
+  .good { color: var(--teal); font-weight: 600; }
+
+  /* ── CAPS BOX ───────────────────────────────────────────────────────────── */
+  .caps-box {
+    background: var(--verde-heading);
+    color: var(--branco);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px 24px;
+    line-height: 1.5;
+    margin-top: 32px;
+    border-radius: var(--radius);
+  }
+
+  /* ── CTA ────────────────────────────────────────────────────────────────── */
+  .cta-section {
+    background: var(--verde-cover);
+    padding: 52px 52px;
+  }
+  .cta-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    color: var(--mint);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .cta-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--branco);
+    line-height: 1.25;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+  }
+  .cta-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,.7);
+    margin-bottom: 32px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .cta-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .cta-checklist li {
+    font-size: 13.5px;
+    color: rgba(255,255,255,.85);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .cta-checklist li::before {
+    content: '✓';
+    color: var(--mint);
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .cta-contact {
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .cta-contact a {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--mint);
+    text-decoration: none;
+    letter-spacing: .02em;
+  }
+  .cta-contact a:hover { text-decoration: underline; }
+  .cta-contact .label {
+    font-size: 10px;
+    letter-spacing: .12em;
+    color: rgba(255,255,255,.4);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────────────────────────── */
+  .footer {
+    background: #111c16;
+    padding: 20px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer-brand {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .10em;
+    color: var(--branco);
+    text-transform: uppercase;
+  }
+  .footer-meta {
+    font-size: 10px;
+    color: rgba(255,255,255,.35);
+    letter-spacing: .04em;
+  }
+
+  /* ── HIGHLIGHT NOTE ─────────────────────────────────────────────────────── */
+  .note {
+    background: var(--cinza-fundo);
+    border-left: 3px solid var(--mint);
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--verde-heading);
+    font-weight: 600;
+    line-height: 1.5;
+    margin-top: 24px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* ── DIVIDER ────────────────────────────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--mint), transparent);
+    margin: 24px 0;
+  }
+
+  /* ── PRINT ──────────────────────────────────────────────────────────────── */
+  @media print {
+    body { background: white; }
+    .doc { box-shadow: none; max-width: 100%; }
+    .section { page-break-inside: avoid; }
+    .cover { page-break-after: always; }
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .cover, .section, .cta-section, .footer { padding-left: 24px; padding-right: 24px; }
+    .cover-title { font-size: 28px; }
+    .cover-wordmark { position: static; text-align: left; margin-bottom: 20px; }
+    .step { grid-template-columns: 36px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ── COVER ──────────────────────────────────────────────────────────── -->
+  <div class="cover">
+    <div class="cover-wordmark">
+      <div class="brand">Ábaco® Modular</div>
+      <div class="site">abacomodular.com.br</div>
+    </div>
+
+    <div class="cover-eyebrow">Guia Técnico · Lead Magnet · Banheiro</div>
+
+    <h1 class="cover-title">Banheiro Pronto<br><span>em Obras</span><br>Verticais</h1>
+
+    <p class="cover-sub">
+      Como o módulo volumétrico elimina semanas de canteiro, reduz dependência de mão de obra
+      e escala com rastreabilidade técnica completa.
+    </p>
+
+    <ul class="cover-index">
+      <li>O que é um banheiro pronto (módulo volumétrico)</li>
+      <li>O processo completo: da consulta ao módulo instalado</li>
+      <li>Checklist de viabilidade: sua obra aceita módulo volumétrico?</li>
+      <li>Comparativo técnico: canteiro tradicional vs módulo pronto</li>
+    </ul>
+  </div>
+
+  <!-- ── 01 O QUE É ─────────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-band">
+      <span class="section-num">01</span>
+      <span class="section-title">O que é um banheiro pronto (módulo volumétrico)?</span>
+    </div>
+
+    <p class="lead">
+      Um módulo volumétrico de banheiro é uma unidade completa — paredes, piso, teto, instalações
+      hidráulicas, elétricas e acabamento — produzida integralmente em ambiente industrial controlado.
+    </p>
+    <p class="lead">
+      Diferente do banheiro convencional construído no canteiro etapa por etapa, o módulo chega
+      à obra pronto para instalação. O processo é direto: içamento, posicionamento, conexão às
+      redes da edificação.
+    </p>
+
+    <div class="divider"></div>
+
+    <h3>Principais características</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span> Produzido 100% em fábrica com controle industrial de qualidade</li>
+      <li><span class="check">✓</span> Personalizável: tamanho, revestimento, acabamento e layout sob medida</li>
+      <li><span class="check">✓</span> Compatibilizado via BIM antes da fabricação — sem surpresas na instalação</li>
+      <li><span class="check">✓</span> Rastreabilidade técnica completa: peso, materiais e especificações documentadas</li>
+      <li><span class="check">✓</span> Instalação medida em horas, não em semanas</li>
+      <li><span class="check">✓</span> Aprovado para obras verticais residenciais, hospitalares e hoteleiras</li>
+    </ul>
+
+    <div class="caps-box">Menos canteiro, mais fábrica.</div>
+  </div>
+
+  <!-- ── 02 PROCESSO ────────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-band">
+      <span class="section-num">02</span>
+      <span class="section-title">Como funciona o processo — da consulta ao módulo instalado</span>
+    </div>
+
+    <p class="lead">
+      O processo da Ábaco Modular foi desenhado para não exigir reformulação do seu projeto.
+      Avaliamos a viabilidade antes de qualquer comprometimento.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title">Diagnóstico de viabilidade gratuito</div>
+          <div class="step-body">Enviamos o projeto para análise técnica. Avaliamos: dimensões dos banheiros, shafts, estrutura da laje, logística de acesso e fornecedores homologados próximos à obra.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title">Compatibilização BIM</div>
+          <div class="step-body">Modelamos o módulo em BIM integrado ao seu projeto de arquitetura e estrutura. Identificamos interferências antes da fabricação — zero surpresa no canteiro.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title">Especificação e personalização</div>
+          <div class="step-body">Definimos juntos: tamanho, layout interno, revestimento, acabamento, pontos hidráulicos e elétricos. O módulo é propriedade intelectual da Ábaco — não é produto genérico de catálogo.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <div class="step-title">Fabricação em ambiente industrial</div>
+          <div class="step-body">O módulo é produzido com controle de qualidade industrial. Cada etapa documentada. Rastreabilidade de materiais, fornecedores e especificações técnicas.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div>
+          <div class="step-title">Entrega e instalação</div>
+          <div class="step-body">O módulo chega à obra pronto. Içamento, posicionamento e conexão às redes. Instalação medida em horas por pavimento — não em semanas de sequenciamento no canteiro.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">Engenharia consultiva gratuita antes de qualquer comprometimento de projeto ou orçamento.</div>
+  </div>
+
+  <!-- ── 03 CHECKLIST ───────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-band">
+      <span class="section-num">03</span>
+      <span class="section-title">Checklist de viabilidade — sua obra aceita módulo volumétrico?</span>
+    </div>
+
+    <p class="lead">
+      Use este checklist para uma primeira avaliação antes da consulta técnica.
+      Marque os itens que se aplicam ao seu empreendimento.
+    </p>
+
+    <h3>Estrutura e projeto</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span> Os banheiros têm dimensões padronizadas ou repetitivas entre pavimentos</li>
+      <li><span class="check">✓</span> O projeto permite acesso de guindaste ou içamento vertical no terreno</li>
+      <li><span class="check">✓</span> A laje tem vão e capacidade de carga compatíveis com módulo volumétrico</li>
+      <li><span class="check">✓</span> Os shafts hidráulicos e elétricos estão definidos no projeto</li>
+      <li><span class="check">✓</span> O empreendimento tem 4 ou mais pavimentos (maior ganho de escala)</li>
+    </ul>
+
+    <h3>Logística e cronograma</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span> A obra tem cronograma de estrutura definido (permite planejar fabricação com antecedência)</li>
+      <li><span class="check">✓</span> Há acesso viário para caminhão de entrega (largura mínima 3,5m)</li>
+      <li><span class="check">✓</span> A obra está localizada em região com fornecedores homologados a até 300km</li>
+      <li><span class="check">✓</span> O cliente busca reduzir o prazo de execução dos banheiros</li>
+      <li><span class="check">✓</span> Há interesse em reduzir dependência de mão de obra especializada no canteiro</li>
+    </ul>
+
+    <h3>Decisão e contratação</h3>
+    <ul class="checklist">
+      <li><span class="check">✓</span> O decisor está aberto a avaliar custo total (não apenas custo unitário do módulo)</li>
+      <li><span class="check">✓</span> Há interesse em rastreabilidade técnica e documentação BIM dos componentes</li>
+      <li><span class="check">✓</span> O empreendimento é residencial vertical, hospitalar, hoteleiro ou industrial</li>
+    </ul>
+
+    <div class="note">
+      Marcou 7 ou mais itens? Sua obra tem perfil ideal para módulo volumétrico.
+      Fale com a Ábaco para diagnóstico gratuito.
+    </div>
+  </div>
+
+  <!-- ── 04 COMPARATIVO ────────────────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-band">
+      <span class="section-num">04</span>
+      <span class="section-title">Comparativo técnico — canteiro tradicional vs módulo pronto</span>
+    </div>
+
+    <p class="lead" style="font-size:13px; color: var(--cinza-texto);">
+      Comparativo baseado em dados de mercado e parâmetros técnicos de obras verticais.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Critério</th>
+            <th>Banheiro Tradicional</th>
+            <th>Módulo Volumétrico — Ábaco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prazo de execução</td>
+            <td class="bad">4 a 8 semanas por pavimento</td>
+            <td class="good">Horas por pavimento após entrega</td>
+          </tr>
+          <tr>
+            <td>Controle de qualidade</td>
+            <td class="bad">Variável — depende da equipe do dia</td>
+            <td class="good">Industrial — controlado em fábrica</td>
+          </tr>
+          <tr>
+            <td>Mão de obra especializada</td>
+            <td class="bad">Necessária em todas as etapas</td>
+            <td class="good">Reduzida — apenas conexão final</td>
+          </tr>
+          <tr>
+            <td>Retrabalho</td>
+            <td class="bad">Alta incidência (hidro, revestimento)</td>
+            <td class="good">Baixa — aprovado antes da entrega</td>
+          </tr>
+          <tr>
+            <td>Personalização</td>
+            <td>Alta, mas sem rastreabilidade</td>
+            <td class="good">Alta e com documentação BIM</td>
+          </tr>
+          <tr>
+            <td>Rastreabilidade técnica</td>
+            <td class="bad">Baixa ou inexistente</td>
+            <td class="good">Completa — materiais e specs</td>
+          </tr>
+          <tr>
+            <td>Compatibilização de projeto</td>
+            <td class="bad">Manual, tardia</td>
+            <td class="good">BIM integrado antes da fabricação</td>
+          </tr>
+          <tr>
+            <td>Impacto no cronograma</td>
+            <td class="bad">Gargalo crítico por sequenciamento</td>
+            <td class="good">Desacoplado — não bloqueia outras frentes</td>
+          </tr>
+          <tr>
+            <td>Viabilidade para escala</td>
+            <td class="bad">Limitada por mão de obra disponível</td>
+            <td class="good">Alta — produção industrial paralela</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="caps-box">Banheiro construído tijolo por tijolo em 2025 é ineficiência com endereço.</div>
+  </div>
+
+  <!-- ── CTA ────────────────────────────────────────────────────────────── -->
+  <div class="cta-section">
+    <div class="cta-label">Próximo passo</div>
+    <div class="cta-title">Diagnóstico de<br>viabilidade gratuito</div>
+    <div class="cta-sub">
+      Avaliamos seu projeto, logística e fornecedores próximos à obra.
+      Sem comprometimento de orçamento ou projeto.
+    </div>
+
+    <ul class="cta-checklist">
+      <li>Análise de compatibilidade do projeto com módulo volumétrico</li>
+      <li>Mapeamento de fornecedores homologados próximos à obra</li>
+      <li>Estimativa de impacto em prazo e mão de obra</li>
+      <li>Proposta de escopo técnico personalizada</li>
+    </ul>
+
+    <div class="cta-contact">
+      <span class="label">Entre em contato</span>
+      <a href="https://abacomodular.com.br">abacomodular.com.br</a>
+      <a href="#">LinkedIn · Ábaco Modular</a>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+  <div class="footer">
+    <div class="footer-brand">Ábaco® Modular</div>
+    <div class="footer-meta">
+      Mercado global de construção modular: US$86Bi em 2024 · CAGR 6,02% · Projeção US$115Bi até 2029
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
